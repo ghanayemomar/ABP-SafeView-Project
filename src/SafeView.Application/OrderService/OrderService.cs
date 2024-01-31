@@ -10,11 +10,11 @@ namespace SafeView.OrderService
 {
     public class OrderService : ApplicationService, IOrderService
     {
-        private readonly OrderManager _productManager;
+        private readonly OrderManager _orderManager;
 
         public OrderService(OrderManager orderManager)
         {
-            _productManager = orderManager;
+            _orderManager = orderManager;
         }
 
 
@@ -22,7 +22,7 @@ namespace SafeView.OrderService
         {
             var mapping = ObjectMapper.Map<CreateOrderDto, Order>(inputFromUser);
 
-            var resultFromManager = await _productManager.CreateAsync(mapping);
+            var resultFromManager = await _orderManager.CreateAsync(mapping);
 
             var finalMapping = ObjectMapper.Map<Order, OrderDto>(resultFromManager);
 
@@ -31,9 +31,11 @@ namespace SafeView.OrderService
 
         public async Task<OrderDto> UpdateAsync(UpdateOrderDto inputFromUser)
         {
-            var mapping = ObjectMapper.Map<UpdateOrderDto, Order>(inputFromUser);
+            var itemFromDatabase = await _orderManager.GetByIdAsync(inputFromUser.Id);
 
-            var managerResult = await _productManager.UpdateAsync(mapping);
+            var mapping = ObjectMapper.Map(inputFromUser, itemFromDatabase);
+
+            var managerResult = await _orderManager.UpdateAsync(mapping);
 
             var finalResult = ObjectMapper.Map<Order, OrderDto>(managerResult);
 
@@ -42,9 +44,9 @@ namespace SafeView.OrderService
 
         public async Task<List<OrderDto>> GetListAsync()
         {
-            var managerResult = await _productManager.GetAllAsync();
+            var managerResult = await _orderManager.GetAllAsync();
 
-            var finalResult = ObjectMapper.Map<ICollection<Order>, List<OrderDto>>(managerResult);
+            var finalResult = ObjectMapper.Map<List<Order>, List<OrderDto>>(managerResult);
 
             return finalResult;
         }
@@ -52,7 +54,7 @@ namespace SafeView.OrderService
 
         public async Task<OrderDto> GetByIdAsync(Guid id)
         {
-            var managerResult = await _productManager.GetByIdAsync(id);
+            var managerResult = await _orderManager.GetByIdAsync(id);
 
             var finalResult = ObjectMapper.Map<Order, OrderDto>(managerResult);
 
@@ -63,7 +65,7 @@ namespace SafeView.OrderService
 
         public async Task DeleteAsync(Guid id)
         {
-            await _productManager.DeleteAsync(id);
+            await _orderManager.DeleteAsync(id);
         }
 
 

@@ -2,6 +2,7 @@
 using SafeView.Dto.Product;
 using SafeView.Interface;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
 
@@ -9,7 +10,7 @@ namespace SafeView.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class ProductController : AbpController
+    public class ProductController : AbpController, IProductService
     {
         private readonly IProductService _productService;
 
@@ -17,43 +18,37 @@ namespace SafeView.Controllers
         {
             _productService = productService;
         }
-
-
         [HttpPost]
-        public async Task CreateProduct([FromBody] CreateProductDto product)
+        public async Task<ProductDto> CreateAsync(CreateProductDto inputFromUser)
         {
-            await _productService.CreateAsync(product);
+            return await _productService.CreateAsync(inputFromUser);
         }
-
-
-        [HttpGet]
-        public async Task<IActionResult> RetriveAllProducts()
-        {
-            var result = await _productService.GetAllAsync();
-            return Ok(result);
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> RetriveProdcutById(Guid id)
-        {
-            var result = await _productService.GetByIdAsync(id);
-            return Ok(result);
-        }
-
-
-        [HttpDelete]
-        public async Task<IActionResult> DeleteProduct(Guid id)
-        {
-            await _productService.DeleteAsync(id);
-            return Ok();
-        }
-
 
         [HttpPut]
-        public async Task UpdateProduct([FromBody] UpdateProductDto product)
+        public async Task<ProductDto> UpdateAsync(UpdateProductDto inputFromUser)
         {
-            await _productService.UpdateAsync(product);
+            return await _productService.UpdateAsync(inputFromUser);
+        }
+
+        [HttpGet]
+        public async Task<List<ProductDto>> GetAllAsync()
+        {
+             return await _productService.GetAllAsync();
+
+        }
+
+        [HttpGet]
+        public async Task<ProductDto> GetByIdAsync(Guid id)
+        {
+            return await _productService.GetByIdAsync(id);
+        }
+
+        [HttpDelete]
+
+        public async Task DeleteAsync(Guid id)
+        {
+            await _productService.DeleteAsync(id);
+
         }
     }
 }

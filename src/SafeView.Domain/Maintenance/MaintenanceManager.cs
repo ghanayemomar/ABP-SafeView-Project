@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
@@ -17,6 +18,12 @@ namespace SafeView.Maintenance
             GuidGenerator.Create();
             return await _maintenanceRepository.InsertAsync(inputFromUser);
         }
+
+        public async Task<List<Maintenance>> GetAllAsync()
+        {
+            return await _maintenanceRepository.GetListAsync();
+        }
+
         public async Task<Maintenance> GetByIdAsync(Guid id)
         {
             return await _maintenanceRepository.GetAsync(id);

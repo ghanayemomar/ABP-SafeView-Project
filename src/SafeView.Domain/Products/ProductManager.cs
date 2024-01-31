@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 
@@ -17,26 +18,52 @@ namespace SafeView.Products
 
         public async Task<Product> CreateAsync(Product inputFromUser)
         {
-            GuidGenerator.Create();
+            if (inputFromUser == null)
+            {
+                throw new BusinessException(nameof(inputFromUser), "Input cannot be null.");
+            }
 
+            GuidGenerator.Create();
             return await _productRepository.InsertAsync(inputFromUser);
         }
 
 
-        public async Task<ICollection<Product>> GetAllAsync()
+        public async Task<List<Product>> GetAllAsync()
         {
-            return await _productRepository.GetListAsync();
+            var result = await _productRepository.GetListAsync();
+
+            if (result == null)
+            {
+
+                throw new DllNotFoundException();
+            }
+
+            return result;
+
         }
+
 
 
         public async Task<Product> GetByIdAsync(Guid id)
         {
-            return await _productRepository.GetAsync(id);
+            var result = await _productRepository.GetAsync(id);
+
+            if (result == null)
+
+            {
+                throw new DllNotFoundException();
+            }
+            return result;
         }
 
 
         public async Task<Product> UpdateAsync(Product inputFromUser)
         {
+            if (inputFromUser == null)
+            {
+                throw new ArgumentNullException(nameof(inputFromUser), "Input cannot be null.");
+            }
+
             return await _productRepository.UpdateAsync(inputFromUser);
         }
 

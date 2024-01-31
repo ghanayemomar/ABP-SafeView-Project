@@ -8,13 +8,12 @@ namespace SafeView.Products
     public class Product : FullAuditedAggregateRoot<Guid>
     {
         [Required]
-
         public string Name { get; set; }
-        [Required]
 
+        [Required]
         public decimal PriceForMe { get; set; }
-        [Required]
 
+        [Required]
         public decimal PriceForSell { get; set; }
 
         public ICollection<SafeView.OrderProducts.OrderProduct> OrderProducts { get; set; }

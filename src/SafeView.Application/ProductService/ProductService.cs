@@ -31,7 +31,9 @@ namespace SafeView.ProductService
 
         public async Task<ProductDto> UpdateAsync(UpdateProductDto inputFromUser)
         {
-            var mapping = ObjectMapper.Map<UpdateProductDto, Product>(inputFromUser);
+            var itemFromDatabase = await _productManager.GetByIdAsync(inputFromUser.Id);    
+
+            var mapping = ObjectMapper.Map(inputFromUser,itemFromDatabase);
 
             var managerResult = await _productManager.UpdateAsync(mapping);
 
@@ -40,11 +42,11 @@ namespace SafeView.ProductService
             return finalResult;
         }
 
-        public async Task<ICollection<ProductDto>> GetAllAsync()
+        public async Task<List<ProductDto>> GetAllAsync()
         {
             var managerResult = await _productManager.GetAllAsync();
 
-            var finalResult = ObjectMapper.Map<ICollection<Product>, ICollection<ProductDto>>(managerResult);
+            var finalResult = ObjectMapper.Map<List<Product>, List<ProductDto>>(managerResult);
 
             return finalResult;
         }

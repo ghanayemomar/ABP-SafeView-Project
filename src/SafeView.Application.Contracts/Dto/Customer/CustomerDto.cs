@@ -1,4 +1,6 @@
-﻿namespace SafeView.Dto.Customer
+﻿using System;
+
+namespace SafeView.Dto.Customer
 {
     public class CustomerDto
     {
@@ -6,5 +8,6 @@
         public string PhoneNumber { get; set; }
         public string WhatsAppNumber { get; set; }
         public string Location { get; set; }
+        public Guid Id { get; set; }
     }
 }

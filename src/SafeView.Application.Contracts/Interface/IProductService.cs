@@ -12,7 +12,7 @@ namespace SafeView.Interface
 
         Task<ProductDto> UpdateAsync(UpdateProductDto inputFromUser);
 
-        Task<ICollection<ProductDto>> GetAllAsync();
+        Task<List<ProductDto>> GetAllAsync();
 
         Task<ProductDto> GetByIdAsync(Guid id);
 

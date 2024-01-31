@@ -31,8 +31,9 @@ namespace SafeView.Orders
             return await _orderRepository.InsertAsync(inputFromUser);
         }
 
-        public async Task<ICollection<Order>> GetAllAsync()
+        public async Task<List<Order>> GetAllAsync()
         {
+            //var result = (await _orderProductRepository.GetQueryableAsync()).Include(x => x.Customer).ToListAsync();
             return await _orderRepository.GetListAsync();
         }
 
@@ -49,17 +50,15 @@ namespace SafeView.Orders
         {
             if (inputFromUser == null)
             {
-                return null;
+                throw new ArgumentNullException(nameof(inputFromUser), "Input cannot be null.");
             }
             return await _orderRepository.UpdateAsync(inputFromUser);
         }
 
+
         public async Task DeleteAsync(Guid id)
         {
-            if (id != null || id != Guid.Empty)
-            {
-                await _orderRepository.DeleteAsync(id);
-            }
+           await _orderRepository.DeleteAsync(id);
         }
     }
 }

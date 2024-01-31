@@ -4,6 +4,7 @@ using SafeView.Dto.Maintenance;
 using SafeView.Dto.Order;
 using SafeView.Dto.OrderProduct;
 using SafeView.Dto.Product;
+using System.Linq;
 
 namespace SafeView;
 
@@ -20,7 +21,7 @@ public class SafeViewApplicationAutoMapperProfile : Profile
         // Maintenance mappings
         CreateMap<CreateMaintenanceDto, SafeView.Maintenance.Maintenance>();
         CreateMap<UpdateMaintenanceDto, SafeView.Maintenance.Maintenance>();
-        CreateMap<SafeView.Maintenance.Maintenance, MaintenanceDto>().ReverseMap(); 
+        CreateMap<SafeView.Maintenance.Maintenance, MaintenanceDto>().ReverseMap();
 
 
         //Product Auto Mapper:
@@ -30,7 +31,8 @@ public class SafeViewApplicationAutoMapperProfile : Profile
 
 
         //Order Auto Mapper:
-        CreateMap<CreateOrderDto, SafeView.Orders.Order>();
+        CreateMap<CreateOrderDto, SafeView.Orders.Order>().ForMember(dis => dis.OrderProducts,
+           opts => opts.MapFrom(src => src.ProductIds.Select(item => new SafeView.OrderProducts.OrderProduct { ProductId = item })));
         CreateMap<UpdateOrderDto, SafeView.Orders.Order>();
         CreateMap<SafeView.Orders.Order, OrderDto>().ReverseMap();
 

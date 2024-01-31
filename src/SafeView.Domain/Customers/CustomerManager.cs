@@ -1,8 +1,7 @@
-﻿using SafeView.Products;
-using System;
-using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 
@@ -21,29 +20,63 @@ namespace SafeView.Customers
 
         public async Task<Customer> CreateAsync(Customer inputFromUser)
         {
-            GuidGenerator.Create();
+            if (inputFromUser == null)
 
+            {
+                throw new BusinessException(nameof(inputFromUser), "Input cannot be null.");
+
+            }
+
+            if (string.IsNullOrWhiteSpace(inputFromUser.Name))
+            {
+                throw new BusinessException(nameof(inputFromUser.Name), "Name cannot be empty.");
+            }
+
+            GuidGenerator.Create();
             return await _customerRepository.InsertAsync(inputFromUser);
         }
 
 
         public async Task<Customer> UpdateAsync(Customer inputFromUser)
         {
+
+            if (inputFromUser == null)
+            {
+                throw new BusinessException(nameof(inputFromUser), "Input cannot be null.");
+            }
+
+            if (string.IsNullOrWhiteSpace(inputFromUser.Name))
+            {
+                throw new BusinessException(nameof(inputFromUser.Name), "Name cannot be empty.");
+            }
+
             return await _customerRepository.UpdateAsync(inputFromUser);
         }
 
 
-        public async Task<ICollection<Customer>> GetAllAsync()
+        public async Task<List<Customer>> GetAllAsync()
         {
-            return await _customerRepository.GetListAsync();
+            var result = await _customerRepository.GetListAsync();
+
+            if (result == null)
+            {
+                throw new BusinessException(nameof(result), "Result is null.");
+            }
+            return result;
         }
 
 
         public async Task<Customer> GetByIdAsync(Guid id)
         {
-            return await _customerRepository.GetAsync(id);
+            var result = await _customerRepository.GetAsync(id);
+
+            if (result == null)
+            {
+                throw new BusinessException(nameof(result), "Result is null.");
+            }
+            return result;
         }
-        
+
 
         public async Task DeleteAsync(Guid id)
         {

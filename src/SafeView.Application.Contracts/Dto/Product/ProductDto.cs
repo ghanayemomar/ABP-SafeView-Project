@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+
 namespace SafeView.Dto.Product
 {
     public class ProductDto
@@ -8,5 +9,7 @@ namespace SafeView.Dto.Product
         public decimal PriceForMe { get; set; }
 
         public decimal PriceForSell { get; set; }
+
+        public Guid Id { get; set; }
     }
 }

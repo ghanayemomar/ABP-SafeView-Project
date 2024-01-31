@@ -3,6 +3,7 @@ using SafeView.Dto.Order;
 using SafeView.Dto.Product;
 using SafeView.Interface;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
 
@@ -10,7 +11,7 @@ namespace SafeView.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class OrderController : AbpController
+    public class OrderController : AbpController,IOrderService
     {
         private readonly IOrderService _orderService;
 
@@ -20,41 +21,40 @@ namespace SafeView.Controllers
 
         }
 
+
         [HttpPost]
-        public async Task CreateOrder([FromBody] CreateOrderDto order)
+        public async Task<OrderDto> CreateAsync(CreateOrderDto inputFromUser)
         {
-            await _orderService.CreateAsync(order);
+            var test = inputFromUser;
+            return await _orderService.CreateAsync(inputFromUser);
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> RetriveAllOrders()
+        public async Task<List<OrderDto>> GetListAsync()
         {
-            var result = await _orderService.GetListAsync();
-            return Ok(result);
+            return await _orderService.GetListAsync();
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> RetriveOrderById(Guid id)
+        public async Task<OrderDto> GetByIdAsync(Guid id)
         {
-            var result = await _orderService.GetByIdAsync(id);
-            return Ok(result);
-        }
-
-
-        [HttpDelete]
-        public async Task<IActionResult> DeleteOrder(Guid id)
-        {
-            await _orderService.DeleteAsync(id);
-            return Ok();
+            return await _orderService.GetByIdAsync(id);
         }
 
 
         [HttpPut]
-        public async Task UpdateOrder([FromBody] UpdateOrderDto order)
+        public async Task<OrderDto> UpdateAsync(UpdateOrderDto inputFromUser)
         {
-            await _orderService.UpdateAsync(order);
+            return await _orderService.UpdateAsync(inputFromUser);
+        }
+
+
+        [HttpDelete]
+        public async Task DeleteAsync(Guid id)
+        {
+            await _orderService.DeleteAsync(id);
         }
     }
 }
