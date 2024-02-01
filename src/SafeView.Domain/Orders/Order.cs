@@ -24,14 +24,13 @@ namespace SafeView.Orders
         [Required]
         public DateTime OrderGuarantee { get; set; } = DateTime.Now.AddYears(1);
 
-        public ICollection<SafeView.OrderProducts.OrderProduct> OrderProducts { get; set; }
-
         [Required]
         [ForeignKey(nameof(Customer))]
         public Guid CustomerId { get; set; }
-
         public SafeView.Customers.Customer Customer { get; set; }
 
         public ICollection<SafeView.Maintenance.Maintenance> Maintenances { get; set; }
+        public ICollection<SafeView.OrderProducts.OrderProduct> OrderProducts { get; set; }
+
     }
 }

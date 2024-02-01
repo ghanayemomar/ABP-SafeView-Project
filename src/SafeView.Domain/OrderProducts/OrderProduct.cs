@@ -8,14 +8,14 @@ namespace SafeView.OrderProducts
     public class OrderProduct : FullAuditedAggregateRoot<Guid>
     {
         [Required]
-        [ForeignKey(nameof(Order))]
+        [ForeignKey(nameof(SafeView.Orders.Order))]
         public Guid OrderId { get; set; }
-        public SafeView.Orders.Order Order { get; set; }
+        //public SafeView.Orders.Order Order { get; set; }
 
 
         [Required]
-        [ForeignKey(nameof(Product))]
+        [ForeignKey(nameof(SafeView.Products.Product))]
         public Guid ProductId { get; set; }
-        public SafeView.Products.Product Product { get; set; }
+        //public SafeView.Products.Product Product { get; set; }
     }
 }

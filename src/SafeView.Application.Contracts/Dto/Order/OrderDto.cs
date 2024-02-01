@@ -18,7 +18,7 @@ namespace SafeView.Dto.Order
 
         public DateTime OrderGuarantee { get; set; } = DateTime.Now.AddYears(1);
 
-        public ICollection<OrderProductDto> OrderProducts { get; set; }
+        public List<OrderProductDto> OrderProducts { get; set; }
 
         public CustomerDto Customer { get; set; }
     }

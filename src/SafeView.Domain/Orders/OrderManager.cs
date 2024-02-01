@@ -24,12 +24,13 @@ namespace SafeView.Orders
         public async Task<Order> CreateAsync(Order inputFromUser)
         {
             GuidGenerator.Create();
-            if (inputFromUser.OrderProducts != null || !inputFromUser.OrderProducts.Any())
+            if (inputFromUser.OrderProducts != null || inputFromUser.OrderProducts.Any())
             {
                 await _orderProductRepository.InsertManyAsync(inputFromUser.OrderProducts);
             }
-            return await _orderRepository.InsertAsync(inputFromUser);
+            return await _orderRepository.InsertAsync(inputFromUser, true);
         }
+
 
         public async Task<List<Order>> GetAllAsync()
         {
@@ -58,7 +59,7 @@ namespace SafeView.Orders
 
         public async Task DeleteAsync(Guid id)
         {
-           await _orderRepository.DeleteAsync(id);
+            await _orderRepository.DeleteAsync(id);
         }
     }
 }
