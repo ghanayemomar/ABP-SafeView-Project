@@ -16,6 +16,7 @@ namespace SafeView.Products
             _productRepository = productRepository;
         }
 
+
         public async Task<Product> CreateAsync(Product inputFromUser)
         {
             if (inputFromUser == null)
@@ -23,9 +24,20 @@ namespace SafeView.Products
                 throw new BusinessException(nameof(inputFromUser), "Input cannot be null.");
             }
 
+            if (string.IsNullOrWhiteSpace(inputFromUser.Name))
+            {
+                throw new BusinessException(nameof(inputFromUser), "Name cannot be null or empty.");
+            }
+
+            if (inputFromUser.PriceForMe == 0 || inputFromUser.PriceForSell == 0)
+            {
+                throw new BusinessException(nameof(inputFromUser), "Price cannot be null or zero.");
+            }
+
             GuidGenerator.Create();
             return await _productRepository.InsertAsync(inputFromUser);
         }
+
 
 
         public async Task<List<Product>> GetAllAsync()
@@ -62,6 +74,16 @@ namespace SafeView.Products
             if (inputFromUser == null)
             {
                 throw new ArgumentNullException(nameof(inputFromUser), "Input cannot be null.");
+            }
+
+            if (string.IsNullOrWhiteSpace(inputFromUser.Name))
+            {
+                throw new BusinessException(nameof(inputFromUser), "Name cannot be null or empty.");
+            }
+
+            if (inputFromUser.PriceForMe == 0 || inputFromUser.PriceForSell == 0)
+            {
+                throw new BusinessException(nameof(inputFromUser), "Price cannot be null or zero.");
             }
 
             return await _productRepository.UpdateAsync(inputFromUser);

@@ -6,15 +6,15 @@ using Volo.Abp.Application.Services;
 
 namespace SafeView.Interface
 {
-    public interface IMaintenaceService: IApplicationService
+    public interface IMaintenaceService : IApplicationService
     {
         Task<MaintenanceDto> CreateAsync(CreateMaintenanceDto inputFromUser);
 
-        Task<MaintenanceDto> GetByIdAsync(Guid id);
+        Task<MaintenanceDto> UpdateAsync(UpdateMaintenanceDto inputFromUser);
 
         Task<List<MaintenanceDto>> GetListAsync();
 
-        Task<MaintenanceDto> UpdateAsync(UpdateMaintenanceDto inputFromUser);
+        Task<MaintenanceDto> GetByIdAsync(Guid id);
 
         Task DeleteAsync(Guid id);
     }

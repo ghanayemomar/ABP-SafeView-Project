@@ -1,6 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SafeView.Dto.Order;
-using SafeView.Dto.Product;
 using SafeView.Interface;
 using System;
 using System.Collections.Generic;
@@ -11,7 +10,7 @@ namespace SafeView.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class OrderController : AbpController,IOrderService
+    public class OrderController : AbpController, IOrderService
     {
         private readonly IOrderService _orderService;
 

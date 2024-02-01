@@ -18,17 +18,21 @@ namespace SafeView.Controllers
         {
             _productService = productService;
         }
+
+
         [HttpPost]
         public async Task<ProductDto> CreateAsync(CreateProductDto inputFromUser)
         {
             return await _productService.CreateAsync(inputFromUser);
         }
 
+
         [HttpPut]
         public async Task<ProductDto> UpdateAsync(UpdateProductDto inputFromUser)
         {
             return await _productService.UpdateAsync(inputFromUser);
         }
+
 
         [HttpGet]
         public async Task<List<ProductDto>> GetAllAsync()
@@ -37,14 +41,15 @@ namespace SafeView.Controllers
 
         }
 
+
         [HttpGet]
         public async Task<ProductDto> GetByIdAsync(Guid id)
         {
             return await _productService.GetByIdAsync(id);
         }
 
-        [HttpDelete]
 
+        [HttpDelete]
         public async Task DeleteAsync(Guid id)
         {
             await _productService.DeleteAsync(id);

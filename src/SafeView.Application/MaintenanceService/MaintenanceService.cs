@@ -29,7 +29,9 @@ namespace SafeView.MaintenanceService
 
         public async Task<MaintenanceDto> UpdateAsync(UpdateMaintenanceDto inputFromUser)
         {
-            var mapper = ObjectMapper.Map<UpdateMaintenanceDto, SafeView.Maintenance.Maintenance>(inputFromUser);
+            var itemFromDatabase = await _maintenanceManager.GetByIdAsync(inputFromUser.Id);
+
+            var mapper = ObjectMapper.Map(inputFromUser, itemFromDatabase);
 
             var managerResult = await _maintenanceManager.UpdateAsync(mapper);
 

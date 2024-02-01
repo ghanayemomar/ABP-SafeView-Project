@@ -13,7 +13,7 @@ namespace SafeView.Maintenance
 
         public decimal Price { get; set; }
 
-        
+
         public DateTime MaintenanceDate { get; set; }
 
 

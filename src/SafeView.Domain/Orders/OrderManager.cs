@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Domain.Services;
 
@@ -24,17 +25,33 @@ namespace SafeView.Orders
         public async Task<Order> CreateAsync(Order inputFromUser)
         {
             GuidGenerator.Create();
+            if(inputFromUser.TotalOrderPrice == 0 || inputFromUser.PayedTotalOrderPrice == 0)
+            {
+                throw new BusinessException(nameof(inputFromUser), "Total order price or Payed total price cannot be 0.");
+            }
+
             if (inputFromUser.OrderProducts != null || inputFromUser.OrderProducts.Any())
             {
                 await _orderProductRepository.InsertManyAsync(inputFromUser.OrderProducts);
             }
+
             return await _orderRepository.InsertAsync(inputFromUser, true);
+        }
+
+
+        public async Task<Order> UpdateAsync(Order inputFromUser)
+        {
+            if (inputFromUser == null)
+            {
+                throw new ArgumentNullException(nameof(inputFromUser), "Input cannot be null.");
+            }
+            return await _orderRepository.UpdateAsync(inputFromUser,true);
         }
 
 
         public async Task<List<Order>> GetAllAsync()
         {
-            //var result = (await _orderProductRepository.GetQueryableAsync()).Include(x => x.Customer).ToListAsync();
+            //var result = (await _orderProductRepository.GetQueryableAsync()).Include(x => x.Cust).ToListAsync();
             return await _orderRepository.GetListAsync();
         }
 
@@ -46,16 +63,6 @@ namespace SafeView.Orders
             }
             return await _orderRepository.GetAsync(id);
         }
-
-        public async Task<Order> UpdateAsync(Order inputFromUser)
-        {
-            if (inputFromUser == null)
-            {
-                throw new ArgumentNullException(nameof(inputFromUser), "Input cannot be null.");
-            }
-            return await _orderRepository.UpdateAsync(inputFromUser);
-        }
-
 
         public async Task DeleteAsync(Guid id)
         {

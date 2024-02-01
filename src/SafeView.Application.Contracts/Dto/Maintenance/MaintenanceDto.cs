@@ -7,6 +7,7 @@ namespace SafeView.Dto.Maintenance
         public DateTime OrderGuarantee { get; set; }
         public decimal Price { get; set; }
         public DateTime MaintenanceDate { get; set; }
+        public Guid Id { get; set; }
         public Guid OrderId { get; set; }
     }
 }

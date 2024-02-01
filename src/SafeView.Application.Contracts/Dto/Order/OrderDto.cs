@@ -14,6 +14,8 @@ namespace SafeView.Dto.Order
 
         public decimal PayedTotalOrderPrice { get; set; }
 
+        public Guid Id { get; set; }    
+
         public OrderStatus Status { get; set; }
 
         public DateTime OrderGuarantee { get; set; } = DateTime.Now.AddYears(1);
