@@ -31,6 +31,7 @@ namespace SafeView.Products
 
             if (inputFromUser.PriceForMe == 0 || inputFromUser.PriceForSell == 0)
             {
+                //you should check the price <= 0 not 0 
                 throw new BusinessException(nameof(inputFromUser), "Price cannot be null or zero.");
             }
 
@@ -61,7 +62,7 @@ namespace SafeView.Products
             var result = await _productRepository.GetAsync(id);
 
             if (result == null)
-
+            // why you added the space here ?
             {
                 throw new DllNotFoundException();
             }
@@ -73,11 +74,13 @@ namespace SafeView.Products
         {
             if (inputFromUser == null)
             {
+                //you are added hard coded here , the input cannot be null here in const 
                 throw new ArgumentNullException(nameof(inputFromUser), "Input cannot be null.");
             }
 
             if (string.IsNullOrWhiteSpace(inputFromUser.Name))
             {
+                //same thing 
                 throw new BusinessException(nameof(inputFromUser), "Name cannot be null or empty.");
             }
 

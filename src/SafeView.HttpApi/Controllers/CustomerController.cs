@@ -12,6 +12,7 @@ namespace SafeView.Controllers
     [Route("api/[controller]/[action]")]
     public class CustomerController : AbpController
     {
+        //why you are not inheritance from ICustomerService
         private readonly  ICustomerService _customerService;
 
         public CustomerController(ICustomerService customerService)

@@ -38,7 +38,7 @@ namespace SafeView.Controllers
         public async Task<List<ProductDto>> GetAllAsync()
         {
              return await _productService.GetAllAsync();
-
+            // why you added space here 
         }
 
 
@@ -53,7 +53,7 @@ namespace SafeView.Controllers
         public async Task DeleteAsync(Guid id)
         {
             await _productService.DeleteAsync(id);
-
+            // why you added space here 
         }
     }
 }

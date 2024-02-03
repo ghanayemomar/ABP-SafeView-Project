@@ -21,7 +21,7 @@ namespace SafeView.Customers
         public async Task<Customer> CreateAsync(Customer inputFromUser)
         {
             if (inputFromUser == null)
-
+                // why you added space here 
             {
                 throw new BusinessException(nameof(inputFromUser), "Input cannot be null.");
 
@@ -39,7 +39,7 @@ namespace SafeView.Customers
 
         public async Task<Customer> UpdateAsync(Customer inputFromUser)
         {
-
+            //why you added space here
             if (inputFromUser == null)
             {
                 throw new BusinessException(nameof(inputFromUser), "Input cannot be null.");
@@ -57,7 +57,7 @@ namespace SafeView.Customers
         public async Task<List<Customer>> GetAllAsync()
         {
             var result = await _customerRepository.GetListAsync();
-
+            // why you added space here 
             if (result == null)
             {
                 throw new BusinessException(nameof(result), "Result is null.");
@@ -69,11 +69,12 @@ namespace SafeView.Customers
         public async Task<Customer> GetByIdAsync(Guid id)
         {
             var result = await _customerRepository.GetAsync(id);
-
+           // why you added space here
             if (result == null)
             {
                 throw new BusinessException(nameof(result), "Result is null.");
             }
+           //need space here 
             return result;
         }
 
