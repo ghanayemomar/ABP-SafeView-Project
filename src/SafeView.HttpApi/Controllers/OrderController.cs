@@ -17,9 +17,7 @@ namespace SafeView.Controllers
         public OrderController(IOrderService orderService)
         {
             _orderService = orderService;
-
         }
-
 
         [HttpPost]
         public async Task<OrderDto> CreateAsync(CreateOrderDto inputFromUser)
@@ -28,13 +26,11 @@ namespace SafeView.Controllers
             return await _orderService.CreateAsync(inputFromUser);
         }
 
-
         [HttpGet]
         public async Task<List<OrderDto>> GetListAsync()
         {
             return await _orderService.GetListAsync();
         }
-
 
         [HttpGet]
         public async Task<OrderDto> GetByIdAsync(Guid id)
@@ -42,13 +38,11 @@ namespace SafeView.Controllers
             return await _orderService.GetByIdAsync(id);
         }
 
-
         [HttpPut]
         public async Task<OrderDto> UpdateAsync(UpdateOrderDto inputFromUser)
         {
             return await _orderService.UpdateAsync(inputFromUser);
         }
-
 
         [HttpDelete]
         public async Task DeleteAsync(Guid id)

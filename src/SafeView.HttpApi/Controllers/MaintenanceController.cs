@@ -12,7 +12,6 @@ namespace SafeView.Controllers
     [Route("api/[controller]/[action]")]
     public class MaintenanceController : AbpController, IMaintenaceService
     {
-
         private readonly IMaintenaceService _maintenanceService;
 
         public MaintenanceController(IMaintenaceService maintenanceService)
@@ -34,20 +33,17 @@ namespace SafeView.Controllers
             return await _maintenanceService.UpdateAsync(inputFromUser);
         }
 
-
         [HttpGet]
         public async Task<MaintenanceDto> GetByIdAsync(Guid id)
         {
             return await _maintenanceService.GetByIdAsync(id);
         }
 
-
         [HttpGet]
         public async Task<List<MaintenanceDto>> GetListAsync()
         {
             return await _maintenanceService.GetListAsync();
         }
-
 
         [HttpDelete]
         public async Task DeleteAsync(Guid id)

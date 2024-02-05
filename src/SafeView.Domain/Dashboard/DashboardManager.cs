@@ -9,10 +9,11 @@ namespace SafeView.Dashboard
 {
     public class DashboardManager : DomainService
     {
-        private readonly ProductManager _productManager;
         private readonly OrderManager _orderManager;
+        private readonly ProductManager _productManager;
         private readonly CustomerManager _customerManager;
         private readonly MaintenanceManager _mainteneceManager;
+
 
         public DashboardManager(ProductManager productManager, OrderManager orderManager, CustomerManager customerManager , MaintenanceManager maintenanceManager)
         {
@@ -46,6 +47,7 @@ namespace SafeView.Dashboard
             };
             return customerDashboard;
         }
+
         public async Task<MaintenanceDashboard> GetMaintenanceCount()
         {
             var maintenanceCount = await _mainteneceManager.GetMaintenancesCountAsync();

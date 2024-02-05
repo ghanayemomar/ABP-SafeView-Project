@@ -17,8 +17,6 @@ namespace SafeView.CustomerService
             _customerManager = customerManager;
         }
 
-
-
         public async Task<CustomerDto> CreateAsync(CreateCustomerDto inputFromUser)
         {
             var mapping = ObjectMapper.Map<CreateCustomerDto, Customer>(inputFromUser);
@@ -29,8 +27,6 @@ namespace SafeView.CustomerService
 
             return finalResult;
         }
-
-
 
         public async Task<CustomerDto> UpdateAsync(UpdateCustomerDto inputFromUser)
         {
@@ -45,8 +41,6 @@ namespace SafeView.CustomerService
             return finalResult;
         }
 
-
-
         public async Task<List<CustomerDto>> GetAllAsync()
         {
             var managerResult = await _customerManager.GetAllAsync();
@@ -56,8 +50,6 @@ namespace SafeView.CustomerService
             return finalResult;
         }
 
-
-
         public async Task<CustomerDto> GetByIdAsync(Guid id)
         {
             var managerResult = await _customerManager.GetByIdAsync(id);
@@ -66,8 +58,6 @@ namespace SafeView.CustomerService
 
             return finalResult;
         }
-
-
 
         public async Task DeleteAsync(Guid id)
         {

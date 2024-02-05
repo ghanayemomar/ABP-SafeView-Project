@@ -17,7 +17,6 @@ namespace SafeView.ProductService
             _productManager = productManager; 
         }
 
-
         public async Task<ProductDto> CreateAsync(CreateProductDto inputFromUser)
         {
             var mapping = ObjectMapper.Map<CreateProductDto, Product>(inputFromUser);
@@ -50,7 +49,6 @@ namespace SafeView.ProductService
 
             return finalResult;
         }
-
 
         public async Task<ProductDto> GetByIdAsync(Guid id)
         {

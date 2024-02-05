@@ -57,7 +57,6 @@ namespace SafeView.Customers
 
         public async Task<Customer> CreateAsync(Customer inputFromUser)
         {
-
             CustomerValidation(inputFromUser);
             GuidGenerator.Create();
             return await _customerRepository.InsertAsync(inputFromUser);
@@ -65,7 +64,6 @@ namespace SafeView.Customers
 
         public async Task<Customer> UpdateAsync(Customer inputFromUser)
         {
-
             CustomerValidation(inputFromUser);
             return await _customerRepository.UpdateAsync(inputFromUser);
         }

@@ -12,7 +12,6 @@ namespace SafeView.OrderProducts
         public Guid OrderId { get; set; }
         //public SafeView.Orders.Order Order { get; set; }
 
-
         [Required]
         [ForeignKey(nameof(SafeView.Products.Product))]
         public Guid ProductId { get; set; }

@@ -17,8 +17,6 @@ namespace SafeView.Controllers
             _dashboardService = dashboardService;
         }
 
-
-
         [HttpGet]
         public async Task<OrderDashboardDto> GetOrderStatusCountsAsync()
         {

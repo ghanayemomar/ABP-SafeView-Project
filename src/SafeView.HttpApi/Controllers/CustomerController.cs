@@ -17,9 +17,7 @@ namespace SafeView.Controllers
         public CustomerController(ICustomerService customerService)
         {
             _customerService = customerService;
-
         }
-
 
         [HttpPost]
         public async Task<CustomerDto> CreateAsync(CreateCustomerDto inputFromUser)
@@ -39,14 +37,11 @@ namespace SafeView.Controllers
             return await (_customerService.GetAllAsync());
         }
 
-
         [HttpGet]
         public async Task<CustomerDto> GetByIdAsync(Guid id)
         {
             return await _customerService.GetByIdAsync(id);
         }
-
-
 
         [HttpDelete]
         public async Task DeleteAsync(Guid id)

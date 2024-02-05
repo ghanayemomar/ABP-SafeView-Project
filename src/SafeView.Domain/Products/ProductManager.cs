@@ -58,7 +58,6 @@ namespace SafeView.Products
             }
 
             return result;
-
         }
 
         public async Task<Product> GetByIdAsync(Guid id)

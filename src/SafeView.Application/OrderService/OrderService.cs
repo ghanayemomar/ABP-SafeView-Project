@@ -64,7 +64,5 @@ namespace SafeView.OrderService
         {
             await _orderManager.DeleteAsync(id);
         }
-
-
     }
 }

@@ -7,6 +7,7 @@ namespace SafeView.Interface
     public interface IDashboardService : IApplicationService
     {
         Task<OrderDashboardDto> GetOrderStatusCountsAsync();
+
         Task<ProductDashboardDto> GetProductsCountAsync();
 
         Task<CustomerDashboardDto> GetCustomersCountAsync();
