@@ -17,7 +17,6 @@ namespace SafeView.OrderService
             _orderManager = orderManager;
         }
 
-
         public async Task<OrderDto> CreateAsync(CreateOrderDto inputFromUser)
         {
             var mapping = ObjectMapper.Map<CreateOrderDto, Order>(inputFromUser);
@@ -51,7 +50,6 @@ namespace SafeView.OrderService
             return finalResult;
         }
 
-
         public async Task<OrderDto> GetByIdAsync(Guid id)
         {
             var managerResult = await _orderManager.GetByIdAsync(id);
@@ -61,7 +59,6 @@ namespace SafeView.OrderService
             return finalResult;
 
         }
-
 
         public async Task DeleteAsync(Guid id)
         {

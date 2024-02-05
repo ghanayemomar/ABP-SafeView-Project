@@ -16,6 +16,7 @@ namespace SafeView.MaintenanceService
         {
             _maintenanceManager = maintenanceManager;
         }
+
         public async Task<MaintenanceDto> CreateAsync(CreateMaintenanceDto inputFromUser)
         {
             var mapper = ObjectMapper.Map<CreateMaintenanceDto, SafeView.Maintenance.Maintenance>(inputFromUser);
@@ -50,8 +51,6 @@ namespace SafeView.MaintenanceService
             return finalResult;
         }
 
-
-
         public async Task<MaintenanceDto> GetByIdAsync(Guid id)
         {
             var managerResult = await _maintenanceManager.GetByIdAsync(id);
@@ -60,8 +59,6 @@ namespace SafeView.MaintenanceService
 
             return finalResult;
         }
-
-
 
         public async Task DeleteAsync(Guid id)
         {

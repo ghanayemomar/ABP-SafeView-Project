@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using SafeView.Dto.Customer;
+using SafeView.Dto.Dashboard;
 using SafeView.Dto.Maintenance;
 using SafeView.Dto.Order;
 using SafeView.Dto.OrderProduct;
@@ -39,6 +40,15 @@ public class SafeViewApplicationAutoMapperProfile : Profile
 
         //OrderProduct Auto Mapper:
         CreateMap<SafeView.OrderProducts.OrderProduct, OrderProductDto>();
+
+        //Dasboard Auto Mapper: 
+        CreateMap<OrderDashboardDto, SafeView.Dashboard.OrderDashboard>().ReverseMap();
+        CreateMap<ProductDashboardDto, SafeView.Dashboard.ProductDashboard>().ReverseMap();
+        CreateMap<CustomerDashboardDto, SafeView.Dashboard.CustomerDashboard>().ReverseMap();
+        CreateMap<MaintenanceDashboardDto, SafeView.Dashboard.MaintenanceDashboard>().ReverseMap();
+
+
+
 
 
     }

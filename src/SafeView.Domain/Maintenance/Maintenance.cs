@@ -13,13 +13,13 @@ namespace SafeView.Maintenance
 
         public decimal Price { get; set; }
 
-
         public DateTime MaintenanceDate { get; set; }
-
 
         [Required]
         [ForeignKey(nameof(Order))]
+
         public Guid OrderId { get; set; }
+
         public Order Order { get; set; }
     }
 }

@@ -9,7 +9,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\SafeView.Application.Contracts\SafeView.Application.Contracts.csproj" />
     <ProjectReference Include="..\SafeView.Domain.Shared\SafeView.Domain.Shared.csproj" />
   </ItemGroup>
 

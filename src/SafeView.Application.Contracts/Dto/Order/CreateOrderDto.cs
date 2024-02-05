@@ -9,8 +9,6 @@ namespace SafeView.Dto.Order
     {
         public string Name { get; set; }
         
-        public decimal TotalOrderPrice { get; set; }
-        
         public decimal PayedTotalOrderPrice { get; set; }
         
         public OrderStatus Status { get; set; }

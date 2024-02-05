@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Domain.Repositories;
@@ -7,38 +9,43 @@ using Volo.Abp.Domain.Services;
 
 namespace SafeView.Products
 {
+    public static class ProductValidationConstants
+    {
+        public const string InputCannotBeNull = "Input is invalid.";
+        public const string NameCannotBeNullOrEmpty = "Name is invalid.";
+        public const string PriceCannotBeNullOrZero = "Price is invalid.";
+    }
+
     public class ProductManager : DomainService
     {
         private readonly IRepository<Product, Guid> _productRepository;
-
         public ProductManager(IRepository<Product, Guid> productRepository)
         {
             _productRepository = productRepository;
         }
 
-
-        public async Task<Product> CreateAsync(Product inputFromUser)
+        private void ValidateProduct(Product inputFromUser)
         {
             if (inputFromUser == null)
             {
-                throw new BusinessException(nameof(inputFromUser), "Input cannot be null.");
+                throw new BusinessException(nameof(inputFromUser), ProductValidationConstants.InputCannotBeNull);
             }
-
             if (string.IsNullOrWhiteSpace(inputFromUser.Name))
             {
-                throw new BusinessException(nameof(inputFromUser), "Name cannot be null or empty.");
+                throw new BusinessException(nameof(inputFromUser), ProductValidationConstants.NameCannotBeNullOrEmpty);
             }
-
-            if (inputFromUser.PriceForMe == 0 || inputFromUser.PriceForSell == 0)
+            if (inputFromUser.PriceForMe <= 0 || inputFromUser.PriceForSell <= 0)
             {
-                throw new BusinessException(nameof(inputFromUser), "Price cannot be null or zero.");
+                throw new BusinessException(nameof(inputFromUser), ProductValidationConstants.PriceCannotBeNullOrZero);
             }
+        }
 
+        public async Task<Product> CreateAsync(Product inputFromUser)
+        {
+            ValidateProduct(inputFromUser);
             GuidGenerator.Create();
             return await _productRepository.InsertAsync(inputFromUser);
         }
-
-
 
         public async Task<List<Product>> GetAllAsync()
         {
@@ -54,8 +61,6 @@ namespace SafeView.Products
 
         }
 
-
-
         public async Task<Product> GetByIdAsync(Guid id)
         {
             var result = await _productRepository.GetAsync(id);
@@ -68,31 +73,28 @@ namespace SafeView.Products
             return result;
         }
 
-
         public async Task<Product> UpdateAsync(Product inputFromUser)
         {
-            if (inputFromUser == null)
-            {
-                throw new ArgumentNullException(nameof(inputFromUser), "Input cannot be null.");
-            }
-
-            if (string.IsNullOrWhiteSpace(inputFromUser.Name))
-            {
-                throw new BusinessException(nameof(inputFromUser), "Name cannot be null or empty.");
-            }
-
-            if (inputFromUser.PriceForMe == 0 || inputFromUser.PriceForSell == 0)
-            {
-                throw new BusinessException(nameof(inputFromUser), "Price cannot be null or zero.");
-            }
-
+            ValidateProduct(inputFromUser);
             return await _productRepository.UpdateAsync(inputFromUser);
         }
-
 
         public async Task DeleteAsync(Guid id)
         {
             await _productRepository.DeleteAsync(id);
+        }
+
+        public async Task<IQueryable<Product>> GetListByIdsAsync(List<Guid> productIds)
+        {
+            var products = (await _productRepository.GetQueryableAsync())
+                .Where(p => productIds.Contains(p.Id));
+
+            return products;
+        }
+
+        public async Task<int> GetProductsCountAsync()
+        {
+            return await _productRepository.CountAsync();
         }
 
     }

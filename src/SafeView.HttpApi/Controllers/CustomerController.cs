@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SafeView.Dto.Customer;
-using SafeView.Dto.Order;
 using SafeView.Interface;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Volo.Abp.AspNetCore.Mvc;
 
@@ -10,9 +10,9 @@ namespace SafeView.Controllers
 {
     [ApiController]
     [Route("api/[controller]/[action]")]
-    public class CustomerController : AbpController
+    public class CustomerController : AbpController, ICustomerService
     {
-        private readonly  ICustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
         public CustomerController(ICustomerService customerService)
         {
@@ -20,41 +20,39 @@ namespace SafeView.Controllers
 
         }
 
+
         [HttpPost]
-        public async Task CreateCustomer([FromBody] CreateCustomerDto customer)
+        public async Task<CustomerDto> CreateAsync(CreateCustomerDto inputFromUser)
         {
-            await _customerService.CreateAsync(customer);
+            return await _customerService.CreateAsync(inputFromUser);
+        }
+
+        [HttpPut]
+        public async Task<CustomerDto> UpdateAsync(UpdateCustomerDto inputFromUser)
+        {
+            return await _customerService.UpdateAsync(inputFromUser);
+        }
+
+        [HttpGet]
+        public async Task<List<CustomerDto>> GetAllAsync()
+        {
+            return await (_customerService.GetAllAsync());
         }
 
 
         [HttpGet]
-        public async Task<IActionResult> RetriveAllCustomers()
+        public async Task<CustomerDto> GetByIdAsync(Guid id)
         {
-            var result = await _customerService.GetAllAsync();
-            return Ok(result);
+            return await _customerService.GetByIdAsync(id);
         }
 
-
-        [HttpGet]
-        public async Task<IActionResult> RetriveCustomerById(Guid id)
-        {
-            var result = await _customerService.GetByIdAsync(id);
-            return Ok(result);
-        }
 
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteCustomer(Guid id)
+        public async Task DeleteAsync(Guid id)
         {
             await _customerService.DeleteAsync(id);
-            return Ok();
         }
 
-
-        [HttpPut]
-        public async Task UpdateCustomer([FromBody] UpdateCustomerDto customer)
-        {
-            await _customerService.UpdateAsync(customer);
-        }
     }
 }

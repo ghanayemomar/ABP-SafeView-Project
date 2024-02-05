@@ -1,5 +1,4 @@
-﻿using SafeView.Dto.Customer;
-using SafeView.Dto.OrderProduct;
+﻿using SafeView.Dto.OrderProduct;
 using SafeView.Enums;
 using System;
 using System.Collections.Generic;
@@ -22,6 +21,6 @@ namespace SafeView.Dto.Order
 
         public List<OrderProductDto> OrderProducts { get; set; }
 
-        public CustomerDto Customer { get; set; }
+        public Guid CustomerId { get; set; }
     }
 }
